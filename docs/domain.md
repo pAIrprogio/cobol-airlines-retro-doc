@@ -35,8 +35,6 @@ This document provides an overview of the domain, subdomain, entities, and servi
 #### Subdomain: Ticket Sales
 - **Entities**:
   - **[Ticket](../DB2/DCLGEN/TICKET-DCLGEN)**: Represents ticket details including seat number, flight ID, and client ID.
-  - **[Passenger](../DB2/DCLGEN/PASSENG-DCLGEN)**: Represents passenger details.
-  - **[Flight](../DB2/DCLGEN/FLIGHT-DCLGEN)**: Represents flight details.
 - **Services**:
   - **[Ticket Sales Service](../CICS/SALES-MAP/SELL1-COB)**: Handles the selling of tickets, including searching and booking.
   - **[Receipt Generation Service](../CICS/SALES-MAP/RECEIPT-COB)**: Generates sales receipts.
@@ -83,15 +81,10 @@ graph TD
     subgraph Sales_Domain
         subgraph Ticket_Sales
             C1[Ticket]
-            C2[Passenger]
-            C3[Flight]
             TS1[Ticket Sales Service]
             TS2[Receipt Generation Service]
             TS1 --> C1
-            TS1 --> C2
-            TS1 --> C3
             TS2 --> C1
-            TS2 --> C2
         end
     end
 
