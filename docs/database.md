@@ -72,3 +72,39 @@ This document provides an overview of the database schema, listing each table al
 |--------------|-------------------|----------------------------|---------------|----------------------------------|
 | AIRPORTID    | Airport ID        | Unique identifier for airport | CHAR(3)     | Primary Key, Required, Valid Airport Codes |
 | CITY         | City              | City where the airport is located | VARCHAR(20) | Required                        |
+
+## Relationships Diagram
+
+```mermaid
+erDiagram
+    PASSENGERS {
+        CHAR(6) CLIENTID PK "Unique identifier for client"
+        VARCHAR(30) FIRSTNAME "Passenger's first name"
+        VARCHAR(30) LASTNAME "Passenger's last name"
+    }
+    FLIGHTS {
+        CHAR(9) FLIGHTID PK "Unique identifier for flight"
+        CHAR(6) FLIGHTNUM "Flight number"
+        DATE FLIGHTDATE "Date of the flight"
+        TIME DEPTIME "Time of departure"
+        TIME ARRTIME "Time of arrival"
+        CHAR(3) AIRPORTDEP "Code of the departure airport"
+        CHAR(3) AIRPORTARR "Code of the arrival airport"
+        INT TOTPASS "Total number of passengers"
+    }
+    TICKETS {
+        CHAR(10) TICKETID PK "Unique identifier for ticket"
+        CHAR(3) SEAT "Seat number assigned to the ticket"
+        CHAR(6) CLIENTID FK "Unique identifier for client"
+        CHAR(9) FLIGHTID FK "Unique identifier for flight"
+    }
+    AIRPORTS {
+        CHAR(3) AIRPORTID PK "Unique identifier for airport"
+        VARCHAR(20) CITY "City where the airport is located"
+    }
+
+    TICKETS ||--|| PASSENGERS : "client of"
+    TICKETS ||--|| FLIGHTS : "for flight"
+    FLIGHTS ||--|| AIRPORTS : "departure from"
+    FLIGHTS ||--|| AIRPORTS : "arrival at"
+```
